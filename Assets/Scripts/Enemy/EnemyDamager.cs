@@ -15,6 +15,7 @@ namespace VampSurv
         private Vector3 targetSize;
 
         [SerializeField] private bool _shoudKnockBack;
+        [SerializeField] private bool _destroyParent;
         
 
         #endregion
@@ -40,6 +41,11 @@ namespace VampSurv
                 if (transform.localScale.x == 0f)
                 {
                     Destroy(gameObject);
+
+                    if (_destroyParent)
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
                 }
             }
         }
