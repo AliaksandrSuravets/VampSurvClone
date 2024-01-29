@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VampSurv
-{
+namespace VampSurv.Service {
     public class SpawnService : MonoBehaviour
     {
         #region Variables
 
-        [SerializeField] private List<GameObject> _enemyToSpawn;
+        [SerializeField] private List<WaveInfo> _enemyToSpawn;
         [SerializeField] private float _timeToSpawn;
 
         [SerializeField] private Transform _minPos;
@@ -23,6 +22,9 @@ namespace VampSurv
 
         private float _spawnCounter;
 
+        private int _currentWave;
+        private float _waveCounter;
+        
         #endregion
 
         #region Unity lifecycle
@@ -33,6 +35,8 @@ namespace VampSurv
             _spawnCounter = _timeToSpawn;
 
             _despawnDistance = Vector3.Distance(transform.position, _maxPos.position) + 4f;
+            _currentWave = -1;
+            GoToNextWave();
         }
 
         // Update is called once per frame
@@ -106,19 +110,54 @@ namespace VampSurv
             return spawnPoint;
         }
 
+        private void GoToNextWave()
+        {
+            _currentWave++;
+            if (_currentWave > _enemyToSpawn.Count)
+            {
+                _currentWave = _enemyToSpawn.Count - 1;
+            }
+
+            _waveCounter = _enemyToSpawn[_currentWave].WaveLength;
+            _spawnCounter = _enemyToSpawn[_currentWave].TimeBetweenSpawns;
+        }
+        
         private void Spawn()
         {
-            if (_spawnCounter <= 0)
+ 
+            if (_target.gameObject.activeSelf)
             {
-                _spawnCounter = _timeToSpawn;
+                if (_currentWave < _enemyToSpawn.Count)
+                {
+                    _waveCounter -= Time.deltaTime;
+                    if (_waveCounter <= 0)
+                    {
+                        GoToNextWave();
+                    }
 
-                GameObject newEnemy = Instantiate(_enemyToSpawn[Random.Range(0, _enemyToSpawn.Count)],
-                    SelectSpawnPoint(),
-                    Quaternion.identity);
-                _enemies.Add(newEnemy);
+                    _spawnCounter -= Time.deltaTime;
+                    if (_spawnCounter <= 0)
+                    {
+                        _spawnCounter = _enemyToSpawn[_currentWave].TimeBetweenSpawns;
+                        GameObject newEnemy = Instantiate(_enemyToSpawn[_currentWave].EnemyToSpawn,
+                            SelectSpawnPoint(),
+                            Quaternion.identity);
+                        _enemies.Add(newEnemy);
+                    }
+
+                }
+                    
             }
         }
 
         #endregion
+    }
+
+    [System.Serializable]
+    public class WaveInfo
+    {
+        public GameObject EnemyToSpawn;
+        public float WaveLength = 10f;
+        public float TimeBetweenSpawns = 1f;
     }
 }

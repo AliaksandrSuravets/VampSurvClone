@@ -12,6 +12,8 @@ namespace VampSurv.Player
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Animator _animator;
 
+        [SerializeField] private float _pickUpRange = 1.5f;
+
         #endregion
 
         #region Unity lifecycle
@@ -29,6 +31,20 @@ namespace VampSurv.Player
             _animator.SetBool(ISMOVING, moveInput != Vector3.zero);
 
             //_rb.velocity = moveInput * _moveSpeed;
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public float GetMoveSpeed()
+        {
+            return _moveSpeed;
+        }
+
+        public float GetPickUpRange()
+        {
+            return _pickUpRange;
         }
 
         #endregion

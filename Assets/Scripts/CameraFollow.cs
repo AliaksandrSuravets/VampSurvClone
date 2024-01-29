@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Cainos.PixelArtTopDown_Basic
+namespace VampSurv
 {
     //let camera follow target
     public class CameraFollow : MonoBehaviour

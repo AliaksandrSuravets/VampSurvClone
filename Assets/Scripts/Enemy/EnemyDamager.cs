@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace VampSurv
+namespace VampSurv.Enemy
 {
     public class EnemyDamager : MonoBehaviour
     {
@@ -41,7 +38,7 @@ namespace VampSurv
                 if (transform.localScale.x == 0f)
                 {
                     Destroy(gameObject);
-
+                    
                     if (_destroyParent)
                     {
                         Destroy(transform.parent.gameObject);

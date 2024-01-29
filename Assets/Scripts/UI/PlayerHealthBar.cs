@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VampSurv.Player;
 
-namespace VampSurv
+namespace VampSurv.UI
 {
     public class PlayerHealthBar : MonoBehaviour
     {

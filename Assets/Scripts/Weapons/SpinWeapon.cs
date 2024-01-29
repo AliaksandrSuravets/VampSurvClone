@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace VampSurv
+namespace VampSurv.Weapons
 {
     public class SpinWeapon : MonoBehaviour
     {

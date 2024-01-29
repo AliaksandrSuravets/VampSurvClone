@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Transactions;
 using UnityEngine;
 
-namespace VampSurv
+namespace VampSurv.Enemy
 {
     public class EnemyAnimation : MonoBehaviour
     {

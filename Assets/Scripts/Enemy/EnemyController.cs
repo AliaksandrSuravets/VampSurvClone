@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VampSurv.Player;
+using VampSurv.Service;
+using VampSurv.UI;
 
-namespace VampSurv
+namespace VampSurv.Enemy
 {
     public class EnemyController : MonoBehaviour
     {
@@ -65,6 +65,8 @@ namespace VampSurv
             if (_health <= 0)
             {
                 Destroy(gameObject);
+                
+                ExperienceLevelController.Instance.SpawmExp(transform.position);
             }
             
             DamageNumberController.Instance.SpawnDamage(damageToTake, transform.position);
